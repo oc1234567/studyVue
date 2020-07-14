@@ -1,6 +1,6 @@
 <template>
   <div id="container">
-    <h1>{{initData}}</h1>
+    <h1>{{ initData }}</h1>
     <span v-if="seen">Now you see me</span>
     <span>{{ message }}</span>
   </div>

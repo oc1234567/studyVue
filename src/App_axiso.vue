@@ -2,7 +2,7 @@
   <div>
     <p>
       Ask a yes/no question:
-      <input v-model="question" />
+      <input v-model="question">
     </p>
     <p>{{ answer }}</p>
   </div>

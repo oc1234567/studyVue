@@ -8,9 +8,18 @@ new Vue({
     render: h => h(App)
 })
 
-Vue.component('todo-item', {
-    props: ['todo'],
-    template: '<li>{{ todo.text }}</li>'
+Vue.component('TodoItem', {
+    props: {
+        todo: {
+            type: Object,
+            default: function () {
+                return { text: '' }
+            }
+        }
+    },
+    render() {
+        return <li>{ this.todo.text }</li>
+    }
 })
 
 new Vue({

@@ -1,12 +1,16 @@
 const path = require('path');
 const Webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const {CleanWebpackPlugin} = require('clean-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin')
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
 
-module.exports = {
+const smp = new SpeedMeasurePlugin()
+
+module.exports = smp.wrap({
     mode:'development', // 开发模式
     entry: ["@babel/polyfill",path.resolve(__dirname,'./src/index.js')],
     output: {
@@ -20,7 +24,8 @@ module.exports = {
       }),
       new CleanWebpackPlugin(),
       new VueLoaderPlugin(),
-      new Webpack.HotModuleReplacementPlugin()
+      new Webpack.HotModuleReplacementPlugin(),
+      new BundleAnalyzerPlugin()
     ],
     module: {
         rules: [{
@@ -31,8 +36,7 @@ module.exports = {
                   plugins:[require('autoprefixer')]
                 }
               }]
-          },
-          {
+          },{
             test:/\.less$/,
             use:['vue-style-loader','css-loader',{
                 loader:'postcss-loader',
@@ -52,8 +56,12 @@ module.exports = {
           },{
             test:/\.vue$/,
             use:['vue-loader']
-        },
-        ]
+        },{
+          enforce:'pre',
+          test:/\.(js|vue)$/,
+          loader:'eslint-loader',
+          include: [path.resolve(__dirname, 'src')]
+        }]
     },
     resolve:{
         alias:{
@@ -67,5 +75,5 @@ module.exports = {
     hot:true,
     contentBase:'./dist'
   },
-}
+})
 

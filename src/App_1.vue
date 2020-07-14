@@ -1,6 +1,10 @@
 <template>
   <ol>
-    <todo-item v-for="item in groceryList" v-bind:todo="item" v-bind:key="item.id"></todo-item>
+    <TodoItem 
+      v-for="item in groceryList" 
+      :key="item.id"
+      :todo="item"  
+    />
   </ol>
 </template>
 <script>
