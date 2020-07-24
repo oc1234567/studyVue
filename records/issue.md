@@ -55,3 +55,39 @@ module.exports = {
   <div/>
   <img>
   ```
+
+  3.vue 子组件 data 数据不刷新，变更为 computed 数据
+  TodoItem 子组件中包含 input 元素：
+  ```
+  <input :id="id" type="checkbox":checked="isDone" class="checkbox" @change="$emit('checkbox-changed')" />
+  ```
+  data 数据中的 isDone 依赖 this.done：
+  ```
+  export default {
+  props: {
+    id: { required: true, type: String },
+    label: { required: true, type: String },
+    done: { default: false, type: Boolean }
+  },
+  data() {
+    return {
+      isDone: this.done
+    };
+  },
+  }
+  ```
+  如果选中一个未选中的 todoItem 项(或者取消选中一个已选中的项)，再点击 Edit 按钮，然后点击取消，会出现一个bug，即选中状态消失了(或者选中状态仍存在)。这是因为 data 中的 isDone 数据只在组件加载成功后从 this.done 中获取值，之后便不再更新。
+  修复这个问题可以用两种方法：
+  - 将 isDone 设置为 `计算属性`，这样 isDone 就可以根据 this.done 的变化而变化
+  ```
+  computed: {
+    isDone() {
+      return this.done;
+    }
+  }
+  ```
+  - 将 input 元素 :checked 值改为 "done"
+  ```
+  <input ... :checked="done" />
+  ```
+  
