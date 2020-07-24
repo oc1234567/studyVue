@@ -2,6 +2,10 @@ import Vue from 'vue'
 import App from './App'
 import App1 from './App_1'
 import App_Axiso from './App_axiso'
+import ToDoApp from './ToDoApp/ToDoApp'
+
+//css
+import './assets/reset.css'
 
 new Vue({
     el: "#app",
@@ -31,4 +35,9 @@ new Vue({
     el: '#watch-example',
     render: h => h(App_Axiso)
     
+})
+
+new Vue({
+    el: "#todoapp",
+    render: h => h(ToDoApp)
 })
