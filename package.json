@@ -45,8 +45,7 @@
     "@vue/babel-helper-vue-jsx-merge-props": "^1.0.0",
     "@vue/babel-preset-jsx": "^1.1.2",
     "axios": "^0.19.2",
-    "lodash": "4.17.15",
-    "lodash.uniqueid": "^4.0.1",
+    "lodash": ">=4.17.19",
     "vue": "^2.6.11"
   },
   "husky": {

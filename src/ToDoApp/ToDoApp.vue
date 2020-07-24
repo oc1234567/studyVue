@@ -20,7 +20,7 @@
 <script>
 import ToDoItem from "./components/ToDoItem.vue";
 import ToDoForm from "./components/ToDoForm";
-import uniqueId from "lodash.uniqueid";
+import { uniqueId } from "lodash";
 
 export default {
   name: "ToDoApp",
