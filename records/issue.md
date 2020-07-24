@@ -56,7 +56,7 @@ module.exports = {
   <img>
   ```
 
-  3.vue 子组件 data 数据不刷新，变更为 computed 数据
+  3.vue 子组件 data 数据不刷新，变更为 computed 数据 \n
   TodoItem 子组件中包含 input 元素：
   ```
   <input :id="id" type="checkbox":checked="isDone" class="checkbox" @change="$emit('checkbox-changed')" />
@@ -90,4 +90,10 @@ module.exports = {
   ```
   <input ... :checked="done" />
   ```
-  
+  4.vue 的 Virtual DOM 机制会优化和批处理数据的更新，在执行 this.idEditing = false 之后，页面是延迟更新的。此时 this.refs.editButton = undefined，需要在下次更新周期时页面出现 Edit 按钮才重新绑定(在点击 Edit 之后，v-if 执行，Edit 按钮从界面中移除，Edit 按钮的 ref 解绑 ，所以 this.refs.editButton = undefined)，所以需要将 this.refs.editButton.focus() 放在 this.$nextTick 中执行。
+  ```
+  this.$nextTick(() => {
+    const editButtonRef = this.$refs.editButton;
+    editButtonRef.focus();
+  })
+  ```
